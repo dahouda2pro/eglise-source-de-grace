@@ -14,6 +14,7 @@ import {
   Quote,
   X,
 } from "lucide-react";
+import DemandeForm from "./components/DemandeForm";
 
 // Le site est entièrement rédigé en français.
 
@@ -324,13 +325,14 @@ export default function Home() {
             <span className="eyebrow light">{t.contactLabel}</span>
             <h2>{t.contactTitle}</h2>
             <p>{t.contactText}</p>
-            <a className="button button-light" href="mailto:contact@eglisesourcedegrace.org">{t.contactButton}<ArrowUpRight size={17} /></a>
+            <a className="button button-light" href="#formulaire-demande">{t.contactButton}<ArrowUpRight size={17} /></a>
           </div>
           <div className="contact-details">
             <div><MapPin size={20} /><span>{t.location}</span></div>
             <div><Heart size={20} /><span><strong>{t.prayer}</strong><br />{t.prayerText}</span></div>
             <div><CalendarDays size={20} /><span>{t.sunday}<br /><small>{t.sundayTime}</small></span></div>
           </div>
+          <div className="contact-request" id="formulaire-demande"><span className="eyebrow light">ÉCRIVEZ-NOUS EN TOUTE CONFIDENTIALITÉ</span><h3>Déposer une demande</h3><DemandeForm /></div>
         </div>
       </section>
 
