@@ -46,7 +46,7 @@ const copy = {
       "Que vous découvriez la foi ou que vous cherchiez une famille spirituelle, nous serions heureux de vous accueillir. Venez comme vous êtes : avançons ensemble dans la grâce de Dieu.",
     aboutLink: "En savoir plus sur nous",
     missionLabel: "NOTRE CŒUR",
-    missionTitle: "Connaître Dieu. Vivre sa grâce. La partager.",
+    missionTitle: "Connaître Dieu. Vivre sa grâce en Jesus-Christ. La partager.",
     missionText:
       "Nous croyons en une foi vivante qui transforme les cœurs, restaure les vies et se manifeste par l'amour envers notre prochain.",
     values: [
