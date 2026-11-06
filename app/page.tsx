@@ -200,13 +200,14 @@ export default function Home() {
 
   useEffect(() => {
     document.title = t.pageTitle;
+    document.documentElement.lang = lang;
     const description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute("content", t.pageDescription);
-  }, [t.pageTitle, t.pageDescription]);
+  }, [lang, t.pageTitle, t.pageDescription]);
 
   const changeLanguage = (next: Language) => {
     setLang(next);
-    document.documentElement.lang = next;
+    setMenuOpen(false);
   };
 
   return (
@@ -229,10 +230,10 @@ export default function Home() {
         </nav>
 
         <div className="header-actions">
-          <div className="language-switch" aria-label={t.languageLabel}>
-            <button className={lang === "fr" ? "active" : ""} onClick={() => changeLanguage("fr")}>FR</button>
+          <div className="language-switch" role="group" aria-label={t.languageLabel}>
+            <button type="button" lang="fr" aria-pressed={lang === "fr"} className={lang === "fr" ? "active" : ""} onClick={() => changeLanguage("fr")}>FR</button>
             <span />
-            <button className={lang === "en" ? "active" : ""} onClick={() => changeLanguage("en")}>EN</button>
+            <button type="button" lang="en" aria-pressed={lang === "en"} className={lang === "en" ? "active" : ""} onClick={() => changeLanguage("en")}>EN</button>
           </div>
           <a className="header-visit" href="#contact">{t.visit}</a>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={t.menuLabel}>
