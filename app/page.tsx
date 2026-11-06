@@ -6,6 +6,8 @@ import {
   ArrowUpRight,
   BookOpen,
   CalendarDays,
+  ChevronLeft,
+  ChevronRight,
   Cross,
   Heart,
   MapPin,
@@ -112,7 +114,29 @@ const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
   const t = copy.fr;
+  const gallerySlides = [
+    { src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=85", title: t.galleryItems[0] },
+    { src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=85", title: t.galleryItems[1] },
+    { src: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1600&q=85", title: t.galleryItems[2] },
+  ];
+  const weeklyActivities = [
+    ["Lundi", "Prière & intercession", "Un temps consacré à la prière collective et à l'intercession."],
+    ["Mardi", "Étude biblique", "Approfondir les Écritures et grandir ensemble dans la foi."],
+    ["Mercredi", "Culte de mi-semaine", "Un moment de louange, d'enseignement et de communion."],
+    ["Jeudi", "Jeûne & prière", "Une journée pour rechercher Dieu dans la prière."],
+    ["Vendredi", "Prière & délivrance", "Un rassemblement de prière et d'accompagnement spirituel."],
+    ["Samedi", "Jeunesse & fraternité", "Un temps de partage, de croissance et de communion."],
+    ["Dimanche", "Grand culte d'adoration", "Notre rassemblement principal de célébration et d'enseignement."],
+  ];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setGalleryIndex((current) => (current + 1) % gallerySlides.length);
+    }, 5500);
+    return () => window.clearInterval(timer);
+  }, [gallerySlides.length]);
 
   useEffect(() => {
     document.title = t.pageTitle;
@@ -259,19 +283,17 @@ export default function Home() {
           <h2>{t.galleryTitle}</h2>
           <p>{t.galleryText}</p>
         </div>
-        <div className="gallery-grid">
-          <figure className="gallery-item gallery-item-large">
-            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=85" alt={t.galleryItems[0]} />
-            <figcaption>{t.galleryItems[0]}</figcaption>
-          </figure>
-          <figure className="gallery-item">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85" alt={t.galleryItems[1]} />
-            <figcaption>{t.galleryItems[1]}</figcaption>
-          </figure>
-          <figure className="gallery-item">
-            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=85" alt={t.galleryItems[2]} />
-            <figcaption>{t.galleryItems[2]}</figcaption>
-          </figure>
+        <div className="gallery-carousel" aria-label="Galerie photos">
+          <div className="gallery-slide" key={gallerySlides[galleryIndex].src}>
+            <img src={gallerySlides[galleryIndex].src} alt={gallerySlides[galleryIndex].title} />
+            <div className="gallery-slide-shade" />
+            <figcaption>{gallerySlides[galleryIndex].title}</figcaption>
+          </div>
+          <button className="gallery-control gallery-prev" onClick={() => setGalleryIndex((galleryIndex - 1 + gallerySlides.length) % gallerySlides.length)} aria-label="Photo précédente"><ChevronLeft /></button>
+          <button className="gallery-control gallery-next" onClick={() => setGalleryIndex((galleryIndex + 1) % gallerySlides.length)} aria-label="Photo suivante"><ChevronRight /></button>
+          <div className="gallery-dots">
+            {gallerySlides.map((slide, index) => <button key={slide.src} className={index === galleryIndex ? "active" : ""} onClick={() => setGalleryIndex(index)} aria-label={`Afficher la photo ${index + 1}`} />)}
+          </div>
         </div>
         <p className="gallery-note">{t.galleryNote}</p>
       </section>
@@ -305,18 +327,25 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="events section page-width" id="events">
-        <div className="events-title">
-          <span className="eyebrow">{t.eventsLabel}</span>
-          <h2>{t.eventsTitle}</h2>
-          <p>{t.eventsText}</p>
+      <section className="weekly section" id="events">
+        <div className="page-width">
+          <div className="section-heading centered">
+            <span className="eyebrow">NOTRE RENDEZ-VOUS HEBDOMADAIRE</span>
+            <h2>Une activité, chaque jour.</h2>
+            <p>Grandissons ensemble dans la prière, la Parole, la louange et la communion fraternelle.</p>
+          </div>
+          <div className="weekly-grid">
+            {weeklyActivities.map(([day, title, description], index) => (
+              <article className={`weekly-card ${index === 6 ? "weekly-card-sunday" : ""}`} key={day}>
+                <div className="weekly-card-top"><CalendarDays size={19} /><span>{day}</span></div>
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <span className="weekly-time">Horaire à confirmer</span>
+              </article>
+            ))}
+          </div>
+          <p className="weekly-note">Les horaires définitifs seront communiqués prochainement par l'église.</p>
         </div>
-        <article className="event-card">
-          <div className="event-date"><CalendarDays size={22} /><span>{t.everyWeek}</span></div>
-          <div className="event-info"><h3>{t.sunday}</h3><p>{t.sundayTime}</p></div>
-          <div className="event-arrow"><ArrowUpRight /></div>
-        </article>
-        <p className="event-note">{t.eventNote}</p>
       </section>
 
       <section className="contact section" id="contact">

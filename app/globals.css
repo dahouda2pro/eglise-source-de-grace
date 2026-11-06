@@ -383,3 +383,33 @@ body { background: var(--paper); }
  .request-detail { padding:35px 22px; }
  .admin-auth-card { padding:30px 24px; }
 }
+
+/* Gallery carousel */
+.gallery-carousel { position: relative; max-width: 1000px; height: clamp(280px, 48vw, 520px); margin: 0 auto; overflow: hidden; background: #e6e6dd; }
+.gallery-slide { position: absolute; inset: 0; animation: galleryFade .45s ease; }
+.gallery-slide img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.gallery-slide-shade { position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(20,26,20,.68)); }
+.gallery-slide figcaption { position: absolute; left: 38px; bottom: 48px; color: white; font: 500 clamp(22px, 3vw, 34px) var(--serif); }
+.gallery-control { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; display: grid; place-items: center; color: white; background: rgba(30,35,28,.35); cursor: pointer; z-index: 2; }
+.gallery-control:hover { background: var(--sage-dark); }
+.gallery-prev { left: 20px; } .gallery-next { right: 20px; }
+.gallery-dots { position: absolute; bottom: 22px; right: 28px; display: flex; gap: 8px; z-index: 2; }
+.gallery-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.55); cursor: pointer; }
+.gallery-dots button.active { background: white; transform: scale(1.35); }
+@keyframes galleryFade { from { opacity: .55; } to { opacity: 1; } }
+
+/* Weekly activities */
+.weekly { background: var(--cream); }
+.weekly-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.weekly-card { min-height: 220px; padding: 24px; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; align-items: flex-start; }
+.weekly-card-top { display: flex; align-items: center; gap: 10px; color: var(--sage-dark); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+.weekly-card h3 { margin: 24px 0 10px; font: 500 22px/1.25 var(--serif); }
+.weekly-card p { color: var(--muted); font-size: 11px; line-height: 1.8; margin: 0 0 18px; }
+.weekly-time { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); width: 100%; color: var(--sage-dark); font-size: 9px; }
+.weekly-card-sunday { background: var(--sage-dark); color: white; border-color: var(--sage-dark); }
+.weekly-card-sunday .weekly-card-top, .weekly-card-sunday .weekly-time { color: #e4e8dc; }
+.weekly-card-sunday p { color: rgba(255,255,255,.75); }
+.weekly-card-sunday .weekly-time { border-color: rgba(255,255,255,.25); }
+.weekly-note { margin: 24px 0 0; text-align: center; color: var(--muted); font-size: 10px; }
+@media (max-width: 900px) { .weekly-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .gallery-carousel { height: 300px; } .gallery-slide figcaption { left: 20px; bottom: 45px; right: 20px; } .gallery-prev { left: 10px; } .gallery-next { right: 10px; } .weekly-grid { grid-template-columns: 1fr; } .weekly-card { min-height: 185px; } }
