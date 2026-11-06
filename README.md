@@ -61,3 +61,13 @@ npm run dev
 ```
 
 Sans configuration Supabase, le site vitrine reste accessible mais le formulaire et l'administration ne peuvent pas enregistrer/afficher les demandes.
+
+## Administration par rôles (Super Admin, Pasteur, Finance, Secrétaire, Diacres)
+
+1. Dans Supabase > SQL Editor, exécuter `supabase/schema.sql` (faire une sauvegarde avant migration).
+2. Dans Supabase > Authentication > Users, créer/inviter le premier compte Super Admin.
+3. Copier son UUID puis exécuter la requête d'amorçage commentée à la fin de `supabase/schema.sql`, avec son UUID et son nom.
+4. Dans Vercel > Settings > Environment Variables, ajouter `SUPABASE_SERVICE_ROLE_KEY` avec la clé secrète `service_role` du projet Supabase. Cette variable doit rester côté serveur : ne jamais lui donner le préfixe `NEXT_PUBLIC_`, ne pas la placer dans le code client et ne pas la committer dans Git.
+5. Redéployer le projet. Le Super Admin pourra ouvrir `/admin/utilisateurs` pour inviter les Pasteurs, membres Finance, Secrétaires et plusieurs Diacres. Chaque personne reçoit une invitation par e-mail pour définir son mot de passe.
+
+Les comptes ne sont pas ouverts à l'inscription publique. Les rôles sont vérifiés côté serveur et les politiques RLS contrôlent l'accès aux données. Vérifier et personnaliser les politiques métier avant d'utiliser des données réelles.
