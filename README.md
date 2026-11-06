@@ -56,6 +56,8 @@ Vercel will redeploy automatically whenever you push changes to the connected Gi
 ## Editing the website
 
 - Main bilingual content and language switch: `app/page.tsx`
+- Event gallery photos: update the image URLs in the Gallery section of `app/page.tsx`
+- YouTube: set `YOUTUBE_VIDEO_ID` and `YOUTUBE_CHANNEL_URL` near the top of `app/page.tsx`
 - Styling and responsive layout: `app/globals.css`
 - Page title and SEO description: `app/layout.tsx`
 

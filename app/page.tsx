@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -20,7 +20,20 @@ type Language = "fr" | "en";
 
 const copy = {
   fr: {
-    nav: ["Accueil", "À propos", "Ministères", "Messages", "Événements", "Contact"],
+    pageTitle: "Église Source de Grâce | Kolwezi",
+    pageDescription: "Un lieu de foi, d'espérance et de transformation. Église Source de Grâce, Kolwezi, République démocratique du Congo.",
+    churchLabel: "ÉGLISE · KOLWEZI",
+    heroLocation: "KOLWEZI, RDC",
+    brandAria: "Église Source de Grâce - accueil",
+    languageLabel: "Choisir la langue",
+    menuLabel: "Ouvrir ou fermer le menu",
+    leadership: "02 / DIRECTION",
+    verse: "Ta parole est une lampe à mes pieds",
+    verseReference: "PSAUME 119:105",
+    everyWeek: "CHAQUE SEMAINE",
+    backTop: "Retour en haut",
+    galleryNote: "Les photos officielles des événements de l'église seront ajoutées prochainement.",
+    nav: ["Accueil", "À propos", "Ministères", "Messages", "Galerie", "YouTube", "Événements", "Contact"],
     eyebrow: "BIENVENUE À L'ÉGLISE SOURCE DE GRÂCE",
     headline: "Une source de grâce.\nUne famille de foi.",
     intro:
@@ -61,6 +74,16 @@ const copy = {
     messagesText:
       "Retrouvez bientôt ici nos prédications, enseignements et ressources pour vous accompagner tout au long de la semaine.",
     messagesCta: "Explorer les messages",
+    galleryLabel: "EN IMAGES",
+    galleryTitle: "La vie de notre église, en images.",
+    galleryText: "Revivez les temps forts de nos cultes, rencontres et événements.",
+    galleryItems: ["Célébration & louange", "Communion fraternelle", "Rencontres de l'église"],
+    youtubeLabel: "RESTEZ INSPIRÉS",
+    youtubeTitle: "Retrouvez nos messages en vidéo.",
+    youtubeText: "Suivez les prédications, les temps de louange et les temps forts de notre communauté sur notre chaîne YouTube.",
+    youtubeButton: "Visiter notre chaîne YouTube",
+    youtubePlaceholder: "Votre vidéo YouTube apparaîtra ici",
+    youtubeSetup: "Ajoutez l'identifiant de votre vidéo dans app/page.tsx pour l'afficher ici.",
     eventsLabel: "RESTONS CONNECTÉS",
     eventsTitle: "La vie de notre église.",
     eventsText:
@@ -80,7 +103,20 @@ const copy = {
     prayerText: "Nous sommes là pour vous écouter et prier avec vous.",
   },
   en: {
-    nav: ["Home", "About", "Ministries", "Messages", "Events", "Contact"],
+    pageTitle: "Source of Grace Church | Kolwezi",
+    pageDescription: "A place of faith, hope, and transformation. Source of Grace Church, Kolwezi, Democratic Republic of the Congo.",
+    churchLabel: "CHURCH · KOLWEZI",
+    heroLocation: "KOLWEZI, DRC",
+    brandAria: "Source of Grace Church - home",
+    languageLabel: "Choose language",
+    menuLabel: "Open or close menu",
+    leadership: "02 / LEADERSHIP",
+    verse: "Your word is a lamp to my feet",
+    verseReference: "PSALM 119:105",
+    everyWeek: "EVERY WEEK",
+    backTop: "Back to top",
+    galleryNote: "Official photos from church events will be added soon.",
+    nav: ["Home", "About", "Ministries", "Messages", "Gallery", "YouTube", "Events", "Contact"],
     eyebrow: "WELCOME TO SOURCE OF GRACE CHURCH",
     headline: "A source of grace.\nA family of faith.",
     intro:
@@ -121,6 +157,16 @@ const copy = {
     messagesText:
       "Our sermons, teachings, and resources will soon be available here to encourage you throughout the week.",
     messagesCta: "Explore messages",
+    galleryLabel: "IN PICTURES",
+    galleryTitle: "Church life, captured in moments.",
+    galleryText: "Look back on highlights from our worship services, gatherings, and events.",
+    galleryItems: ["Worship & celebration", "Fellowship", "Church gatherings"],
+    youtubeLabel: "STAY INSPIRED",
+    youtubeTitle: "Watch and grow with us.",
+    youtubeText: "Watch sermons, worship moments, and highlights from our church community on our YouTube channel.",
+    youtubeButton: "Visit our YouTube channel",
+    youtubePlaceholder: "Your YouTube video will appear here",
+    youtubeSetup: "Add your video ID in app/page.tsx to display it here.",
     eventsLabel: "STAY CONNECTED",
     eventsTitle: "Life at our church.",
     eventsText:
@@ -141,12 +187,22 @@ const copy = {
   },
 };
 
-const navTargets = ["home", "about", "ministries", "messages", "events", "contact"];
+const navTargets = ["home", "about", "ministries", "messages", "gallery", "youtube", "events", "contact"];
+
+// Add your YouTube video ID and channel URL when they are available.
+const YOUTUBE_VIDEO_ID = "";
+const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/";
 
 export default function Home() {
   const [lang, setLang] = useState<Language>("fr");
   const [menuOpen, setMenuOpen] = useState(false);
   const t = copy[lang];
+
+  useEffect(() => {
+    document.title = t.pageTitle;
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", t.pageDescription);
+  }, [t.pageTitle, t.pageDescription]);
 
   const changeLanguage = (next: Language) => {
     setLang(next);
@@ -156,11 +212,11 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#home" aria-label="Église Source de Grâce - accueil">
+        <a className="brand" href="#home" aria-label={t.brandAria}>
           <span className="brand-mark"><Cross size={22} strokeWidth={1.5} /></span>
           <span className="brand-text">
             <strong>Source de Grâce</strong>
-            <small>ÉGLISE · KOLWEZI</small>
+            <small>{t.churchLabel}</small>
           </span>
         </a>
 
@@ -173,13 +229,13 @@ export default function Home() {
         </nav>
 
         <div className="header-actions">
-          <div className="language-switch" aria-label="Choose language">
+          <div className="language-switch" aria-label={t.languageLabel}>
             <button className={lang === "fr" ? "active" : ""} onClick={() => changeLanguage("fr")}>FR</button>
             <span />
             <button className={lang === "en" ? "active" : ""} onClick={() => changeLanguage("en")}>EN</button>
           </div>
           <a className="header-visit" href="#contact">{t.visit}</a>
-          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+          <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={t.menuLabel}>
             {menuOpen ? <X /> : <Menu />}
           </button>
         </div>
@@ -197,7 +253,7 @@ export default function Home() {
             <a className="text-link light-link" href="#about">{t.discover}<ArrowDown size={16} /></a>
           </div>
         </div>
-        <div className="hero-location"><MapPin size={15} /> KOLWEZI, RDC</div>
+        <div className="hero-location"><MapPin size={15} /> {t.heroLocation}</div>
       </section>
 
       <section className="welcome section page-width" id="about">
@@ -237,7 +293,7 @@ export default function Home() {
             <span className="portrait-icon"><Cross size={34} strokeWidth={1.2} /></span>
             <span>{lang === "fr" ? "PHOTO DU PASTEUR À AJOUTER" : "PASTOR PHOTO TO BE ADDED"}</span>
           </div>
-          <span className="image-index">02 / LEADERSHIP</span>
+          <span className="image-index">{t.leadership}</span>
         </div>
         <div className="pastor-copy">
           <Quote className="quote-icon" size={36} strokeWidth={1.2} />
@@ -284,8 +340,60 @@ export default function Home() {
           </div>
           <div className="bible-art">
             <BookOpen size={54} strokeWidth={1} />
-            <span>« {lang === "fr" ? "Ta parole est une lampe à mes pieds" : "Your word is a lamp to my feet"} »</span>
-            <small>PSAUME 119:105 · PSALM 119:105</small>
+            <span>« {t.verse} »</span>
+            <small>{t.verseReference}</small>
+          </div>
+        </div>
+      </section>
+
+      <section className="gallery section page-width" id="gallery">
+        <div className="section-heading centered">
+          <span className="eyebrow">{t.galleryLabel}</span>
+          <h2>{t.galleryTitle}</h2>
+          <p>{t.galleryText}</p>
+        </div>
+        <div className="gallery-grid">
+          <figure className="gallery-item gallery-item-large">
+            <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=85" alt={t.galleryItems[0]} />
+            <figcaption>{t.galleryItems[0]}</figcaption>
+          </figure>
+          <figure className="gallery-item">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85" alt={t.galleryItems[1]} />
+            <figcaption>{t.galleryItems[1]}</figcaption>
+          </figure>
+          <figure className="gallery-item">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=85" alt={t.galleryItems[2]} />
+            <figcaption>{t.galleryItems[2]}</figcaption>
+          </figure>
+        </div>
+        <p className="gallery-note">{t.galleryNote}</p>
+      </section>
+
+      <section className="youtube-section section" id="youtube">
+        <div className="page-width youtube-inner">
+          <div className="youtube-copy">
+            <span className="eyebrow">{t.youtubeLabel}</span>
+            <h2>{t.youtubeTitle}</h2>
+            <p>{t.youtubeText}</p>
+            <a className="button button-dark" href={YOUTUBE_CHANNEL_URL} target="_blank" rel="noreferrer">
+              {t.youtubeButton}<ArrowUpRight size={17} />
+            </a>
+          </div>
+          <div className="youtube-frame">
+            {YOUTUBE_VIDEO_ID ? (
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`}
+                title={lang === "fr" ? "Vidéo YouTube de l’Église Source de Grâce" : "Source of Grace Church YouTube video"}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <div className="youtube-placeholder">
+                <span className="youtube-play"><Play size={28} fill="currentColor" /></span>
+                <strong>{t.youtubePlaceholder}</strong>
+                <small>{t.youtubeSetup}</small>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -297,7 +405,7 @@ export default function Home() {
           <p>{t.eventsText}</p>
         </div>
         <article className="event-card">
-          <div className="event-date"><CalendarDays size={22} /><span>{lang === "fr" ? "CHAQUE SEMAINE" : "EVERY WEEK"}</span></div>
+          <div className="event-date"><CalendarDays size={22} /><span>{t.everyWeek}</span></div>
           <div className="event-info"><h3>{t.sunday}</h3><p>{t.sundayTime}</p></div>
           <div className="event-arrow"><ArrowUpRight /></div>
         </article>
@@ -324,14 +432,14 @@ export default function Home() {
         <div className="page-width footer-main">
           <a className="brand footer-brand" href="#home">
             <span className="brand-mark"><Cross size={22} strokeWidth={1.5} /></span>
-            <span className="brand-text"><strong>Source de Grâce</strong><small>ÉGLISE · KOLWEZI</small></span>
+            <span className="brand-text"><strong>Source de Grâce</strong><small>{t.churchLabel}</small></span>
           </a>
           <p>{t.footerLine}</p>
-          <a className="back-top" href="#home">{lang === "fr" ? "Retour en haut" : "Back to top"} <ArrowUpRight size={16} /></a>
+          <a className="back-top" href="#home">{t.backTop} <ArrowUpRight size={16} /></a>
         </div>
         <div className="page-width footer-bottom">
           <span>© {new Date().getFullYear()} Église Source de Grâce. {t.footer}</span>
-          <span>KOLWEZI · RDC</span>
+          <span>{t.heroLocation}</span>
         </div>
       </footer>
     </main>
