@@ -18,6 +18,9 @@ import {
 
 type Language = "fr" | "en";
 
+// The website always opens in French. Visitors can switch to English manually.
+const DEFAULT_LANGUAGE: Language = "fr";
+
 const copy = {
   fr: {
     pageTitle: "Église Source de Grâce | Kolwezi",
@@ -194,7 +197,7 @@ const YOUTUBE_VIDEO_ID = "";
 const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/";
 
 export default function Home() {
-  const [lang, setLang] = useState<Language>("fr");
+  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [menuOpen, setMenuOpen] = useState(false);
   const t = copy[lang];
 

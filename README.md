@@ -63,3 +63,8 @@ Vercel will redeploy automatically whenever you push changes to the connected Gi
 
 The pastor portrait is intentionally a placeholder until the official photo is provided.
 The contact email is a placeholder and must be replaced before launch.
+
+
+## Language settings
+
+Default language: French. The website opens in French on each fresh page load. Visitors can switch to English using the FR / EN controls. The default is configured by `DEFAULT_LANGUAGE = "fr"` in `app/page.tsx`.
