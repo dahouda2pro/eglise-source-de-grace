@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import {
   ArrowDown,
-  ArrowRight,
   ArrowUpRight,
   BookOpen,
   CalendarDays,
@@ -16,10 +15,7 @@ import {
   X,
 } from "lucide-react";
 
-type Language = "fr" | "en";
-
-// The website always opens in French. Visitors can switch to English manually.
-const DEFAULT_LANGUAGE: Language = "fr";
+// Le site est entièrement rédigé en français.
 
 const copy = {
   fr: {
@@ -105,113 +101,24 @@ const copy = {
     prayer: "Besoin de prière ?",
     prayerText: "Nous sommes là pour vous écouter et prier avec vous.",
   },
-  en: {
-    pageTitle: "Source of Grace Church | Kolwezi",
-    pageDescription: "A place of faith, hope, and transformation. Source of Grace Church, Kolwezi, Democratic Republic of the Congo.",
-    churchLabel: "CHURCH · KOLWEZI",
-    heroLocation: "KOLWEZI, DRC",
-    brandAria: "Source of Grace Church - home",
-    languageLabel: "Choose language",
-    menuLabel: "Open or close menu",
-    leadership: "02 / LEADERSHIP",
-    verse: "Your word is a lamp to my feet",
-    verseReference: "PSALM 119:105",
-    everyWeek: "EVERY WEEK",
-    backTop: "Back to top",
-    galleryNote: "Official photos from church events will be added soon.",
-    nav: ["Home", "About", "Ministries", "Messages", "Gallery", "YouTube", "Events", "Contact"],
-    eyebrow: "WELCOME TO SOURCE OF GRACE CHURCH",
-    headline: "A source of grace.\nA family of faith.",
-    intro:
-      "A place to encounter God, grow in faith, and find a community that welcomes you with love.",
-    visit: "Plan your visit",
-    discover: "Discover our church",
-    welcome: "WELCOME HOME",
-    welcomeTitle: "There is a place for you here.",
-    welcomeText:
-      "Whether you are exploring faith or looking for a spiritual family, we would love to welcome you. Come as you are: let us grow together in the grace of God.",
-    aboutLink: "Learn more about us",
-    missionLabel: "OUR HEART",
-    missionTitle: "Know God. Live in grace. Share it.",
-    missionText:
-      "We believe in a living faith that transforms hearts, restores lives, and is expressed through love for our neighbors.",
-    values: [
-      ["Faith", "We place Jesus Christ at the center of our lives and our hope."],
-      ["Community", "We grow together through love, prayer, and fellowship."],
-      ["Service", "We use our gifts to serve God and those around us."],
-    ],
-    pastorLabel: "A WORD FROM OUR PASTOR",
-    pastorTitle: "Welcome to the family.",
-    pastorText:
-      "I invite you to discover a community where God's Word inspires us, grace lifts us up, and everyone can grow in their relationship with the Lord.",
-    pastorName: "Felly Kasongo",
-    pastorRole: "Senior Pastor",
-    ministriesLabel: "GROWING TOGETHER",
-    ministriesTitle: "A place for everyone.",
-    ministriesText:
-      "Discover the places where we learn, serve, pray, and share life together.",
-    ministries: [
-      ["Worship", "Celebrate God together through worship and prayer."],
-      ["Youth", "Encourage the next generation to build a strong faith."],
-      ["Bible teaching", "Explore Scripture and grow in the knowledge of God."],
-    ],
-    messagesLabel: "NOURISH YOUR FAITH",
-    messagesTitle: "The Word for every season.",
-    messagesText:
-      "Our sermons, teachings, and resources will soon be available here to encourage you throughout the week.",
-    messagesCta: "Explore messages",
-    galleryLabel: "IN PICTURES",
-    galleryTitle: "Church life, captured in moments.",
-    galleryText: "Look back on highlights from our worship services, gatherings, and events.",
-    galleryItems: ["Worship & celebration", "Fellowship", "Church gatherings"],
-    youtubeLabel: "STAY INSPIRED",
-    youtubeTitle: "Watch and grow with us.",
-    youtubeText: "Watch sermons, worship moments, and highlights from our church community on our YouTube channel.",
-    youtubeButton: "Visit our YouTube channel",
-    youtubePlaceholder: "Your YouTube video will appear here",
-    youtubeSetup: "Add your video ID in app/page.tsx to display it here.",
-    eventsLabel: "STAY CONNECTED",
-    eventsTitle: "Life at our church.",
-    eventsText:
-      "Join us for worship and share moments of faith, fellowship, and joy.",
-    sunday: "Sunday worship",
-    sundayTime: "Schedule to be confirmed",
-    eventNote: "Service times and event details will be published soon.",
-    contactLabel: "WE WOULD LOVE TO MEET YOU",
-    contactTitle: "Let's get to know each other.",
-    contactText:
-      "Have a question, a prayer request, or want to visit? Get in touch. We would be happy to hear from you.",
-    location: "Kolwezi, Lualaba\nDemocratic Republic of the Congo",
-    contactButton: "Get in touch",
-    footerLine: "A place of faith, hope, and transformation.",
-    footer: "All rights reserved.",
-    prayer: "Need prayer?",
-    prayerText: "We are here to listen and pray with you.",
-  },
 };
 
 const navTargets = ["home", "about", "ministries", "messages", "gallery", "youtube", "events", "contact"];
 
-// Add your YouTube video ID and channel URL when they are available.
+// Renseignez ici l’identifiant de la vidéo et l’adresse de la chaîne YouTube.
 const YOUTUBE_VIDEO_ID = "";
 const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/";
 
 export default function Home() {
-  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [menuOpen, setMenuOpen] = useState(false);
-  const t = copy[lang];
+  const t = copy.fr;
 
   useEffect(() => {
     document.title = t.pageTitle;
-    document.documentElement.lang = lang;
+    document.documentElement.lang = "fr";
     const description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute("content", t.pageDescription);
-  }, [lang, t.pageTitle, t.pageDescription]);
-
-  const changeLanguage = (next: Language) => {
-    setLang(next);
-    setMenuOpen(false);
-  };
+  }, [t.pageTitle, t.pageDescription]);
 
   return (
     <main>
@@ -233,11 +140,6 @@ export default function Home() {
         </nav>
 
         <div className="header-actions">
-          <div className="language-switch" role="group" aria-label={t.languageLabel}>
-            <button type="button" lang="fr" aria-pressed={lang === "fr"} className={lang === "fr" ? "active" : ""} onClick={() => changeLanguage("fr")}>FR</button>
-            <span />
-            <button type="button" lang="en" aria-pressed={lang === "en"} className={lang === "en" ? "active" : ""} onClick={() => changeLanguage("en")}>EN</button>
-          </div>
           <a className="header-visit" href="#contact">{t.visit}</a>
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={t.menuLabel}>
             {menuOpen ? <X /> : <Menu />}
@@ -262,7 +164,7 @@ export default function Home() {
 
       <section className="welcome section page-width" id="about">
         <div className="welcome-photo">
-          <div className="photo-caption"><span>01</span><span>{lang === "fr" ? "UNE ÉGLISE, UNE FAMILLE" : "ONE CHURCH, ONE FAMILY"}</span></div>
+          <div className="photo-caption"><span>01</span><span>"UNE ÉGLISE, UNE FAMILLE"</span></div>
         </div>
         <div className="welcome-copy">
           <span className="eyebrow">{t.welcome}</span>
@@ -295,7 +197,7 @@ export default function Home() {
         <div className="pastor-image">
           <div className="portrait-placeholder">
             <span className="portrait-icon"><Cross size={34} strokeWidth={1.2} /></span>
-            <span>{lang === "fr" ? "PHOTO DU PASTEUR À AJOUTER" : "PASTOR PHOTO TO BE ADDED"}</span>
+            <span>"PHOTO DU PASTEUR À AJOUTER"</span>
           </div>
           <span className="image-index">{t.leadership}</span>
         </div>
@@ -387,7 +289,7 @@ export default function Home() {
             {YOUTUBE_VIDEO_ID ? (
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`}
-                title={lang === "fr" ? "Vidéo YouTube de l’Église Source de Grâce" : "Source of Grace Church YouTube video"}
+                title="Vidéo YouTube de l’Église Source de Grâce"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />

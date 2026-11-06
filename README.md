@@ -1,70 +1,29 @@
-# Église Source de Grâce — Website
+# Église Source de Grâce — site officiel
 
-A bilingual (French / English), responsive church website built with Next.js.
+Site vitrine Next.js entièrement rédigé en français. Le français est l’unique langue de l’interface et la langue définie dans le document HTML (`lang="fr"`).
 
-## Requirements
-- Node.js 20.9 or newer
-- npm
-
-## Run locally
+## Lancer le projet en local
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:3000.
+Ouvrez ensuite http://localhost:3000.
 
-## Build
+## Personnalisation avant publication
 
-```bash
-npm run build
-npm start
-```
+- Remplacez les photos temporaires de la galerie par les photos officielles de l’église.
+- Ajoutez la photo officielle du pasteur dans la section qui lui est consacrée.
+- Dans `app/page.tsx`, renseignez `YOUTUBE_VIDEO_ID` et `YOUTUBE_CHANNEL_URL` avec les informations réelles de la chaîne.
+- Remplacez l’adresse e-mail provisoire `contact@eglisesourcedegrace.org` par l’adresse officielle.
+- Confirmez l’horaire du culte dominical avant publication.
 
-## Deploy to Vercel
+## Déploiement
 
-1. Create a new GitHub repository, for example `eglise-source-de-grace`.
-2. Extract this project and open its folder in VS Code.
-3. Run:
+1. Envoyez le contenu du dossier sur votre dépôt GitHub.
+2. Importez le dépôt dans Vercel.
+3. Conservez les paramètres de construction Next.js proposés par Vercel.
+4. Déployez le site.
 
-```bash
-git init
-git add .
-git commit -m "Initial church website"
-git branch -M main
-git remote add origin https://github.com/YOUR_GITHUB_USERNAME/eglise-source-de-grace.git
-git push -u origin main
-```
-
-4. Sign in to https://vercel.com with GitHub.
-5. Select **Add New → Project**, import `eglise-source-de-grace`.
-6. Keep the detected Next.js settings and click **Deploy**.
-
-Vercel will redeploy automatically whenever you push changes to the connected GitHub repository.
-
-## Content to confirm before public launch
-
-- Exact service days and times
-- Church phone number and official email address
-- Street address / map pin
-- Official social media links
-- Pastor's approved biography and photograph
-- Sermon and event content
-- Giving / donation details (only if the church wants this feature)
-
-## Editing the website
-
-- Main bilingual content and language switch: `app/page.tsx`
-- Event gallery photos: update the image URLs in the Gallery section of `app/page.tsx`
-- YouTube: set `YOUTUBE_VIDEO_ID` and `YOUTUBE_CHANNEL_URL` near the top of `app/page.tsx`
-- Styling and responsive layout: `app/globals.css`
-- Page title and SEO description: `app/layout.tsx`
-
-The pastor portrait is intentionally a placeholder until the official photo is provided.
-The contact email is a placeholder and must be replaced before launch.
-
-
-## Language settings
-
-Default language: French. The website opens in French on each fresh page load. Visitors can switch to English using the FR / EN controls. The default is configured by `DEFAULT_LANGUAGE = "fr"` in `app/page.tsx`.
+Le contenu public du site est en français : navigation, titres, descriptions, boutons, légendes, messages, événements, coordonnées, métadonnées et textes alternatifs des images.
